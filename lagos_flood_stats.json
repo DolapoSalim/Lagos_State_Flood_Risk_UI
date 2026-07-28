@@ -142,7 +142,52 @@
     "area_km2": 14.1,
     "population_estimate": 656256,
     "population_exposed_pct": 0.0,
-    "population_exposed_est": 0
+    "population_exposed_est": 0,
+    "forecast_next_12mo": {
+      "point": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "predicted_months_flooded_next_year": 0.0
   },
   {
     "name": "Ajeromi-Ifelodun",
@@ -287,7 +332,52 @@
     "area_km2": 9.9,
     "population_estimate": 992246,
     "population_exposed_pct": 0.0,
-    "population_exposed_est": 0
+    "population_exposed_est": 0,
+    "forecast_next_12mo": {
+      "point": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "predicted_months_flooded_next_year": 0.0
   },
   {
     "name": "Alimosho",
@@ -432,7 +522,52 @@
     "area_km2": 126.2,
     "population_estimate": 1932388,
     "population_exposed_pct": 0.0,
-    "population_exposed_est": 0
+    "population_exposed_est": 0,
+    "forecast_next_12mo": {
+      "point": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "predicted_months_flooded_next_year": 0.0
   },
   {
     "name": "Amuwo-Odofin",
@@ -577,7 +712,52 @@
     "area_km2": 148.4,
     "population_estimate": 489077,
     "population_exposed_pct": 67.5,
-    "population_exposed_est": 330127
+    "population_exposed_est": 330127,
+    "forecast_next_12mo": {
+      "point": [
+        0.228,
+        0.197,
+        0.18,
+        0.148,
+        0.162,
+        0.174,
+        0.185,
+        0.193,
+        0.202,
+        0.201,
+        0.208,
+        0.201
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.979,
+        1.062,
+        1.118,
+        1.153,
+        1.213,
+        1.273,
+        1.319,
+        1.362,
+        1.38,
+        1.403,
+        1.428,
+        1.459
+      ]
+    },
+    "predicted_months_flooded_next_year": 2.3
   },
   {
     "name": "Apapa",
@@ -722,7 +902,52 @@
     "area_km2": 35.5,
     "population_estimate": 324317,
     "population_exposed_pct": 25.0,
-    "population_exposed_est": 81079
+    "population_exposed_est": 81079,
+    "forecast_next_12mo": {
+      "point": [
+        0.001,
+        0.0,
+        0.0,
+        0.0,
+        0.001,
+        0.0,
+        0.002,
+        0.002,
+        0.001,
+        0.0,
+        0.001,
+        0.001
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.002,
+        0.002,
+        0.001,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.138,
+        0.15,
+        0.166,
+        0.182,
+        0.187,
+        0.195,
+        0.207,
+        0.22,
+        0.211,
+        0.218,
+        0.216,
+        0.235
+      ]
+    },
+    "predicted_months_flooded_next_year": 0.0
   },
   {
     "name": "Badagry",
@@ -867,7 +1092,52 @@
     "area_km2": 421.7,
     "population_estimate": 347768,
     "population_exposed_pct": 40.0,
-    "population_exposed_est": 139107
+    "population_exposed_est": 139107,
+    "forecast_next_12mo": {
+      "point": [
+        0.16,
+        0.17,
+        0.201,
+        0.227,
+        0.271,
+        0.328,
+        0.386,
+        0.495,
+        0.608,
+        0.759,
+        0.825,
+        0.912
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.031,
+        0.053,
+        0.128,
+        0.207,
+        0.346,
+        0.404,
+        0.449
+      ],
+      "q90": [
+        0.736,
+        0.87,
+        0.984,
+        1.093,
+        1.19,
+        1.318,
+        1.459,
+        1.638,
+        1.799,
+        2.002,
+        2.123,
+        2.271
+      ]
+    },
+    "predicted_months_flooded_next_year": 5.3
   },
   {
     "name": "Epe",
@@ -1012,7 +1282,52 @@
     "area_km2": 1025.0,
     "population_estimate": 266237,
     "population_exposed_pct": 85.0,
-    "population_exposed_est": 226301
+    "population_exposed_est": 226301,
+    "forecast_next_12mo": {
+      "point": [
+        0.981,
+        0.904,
+        0.818,
+        0.788,
+        0.8,
+        0.85,
+        0.919,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "q10": [
+        0.463,
+        0.28,
+        0.119,
+        0.026,
+        0.015,
+        0.046,
+        0.108,
+        0.191,
+        0.271,
+        0.285,
+        0.268,
+        0.222
+      ],
+      "q90": [
+        1.122,
+        1.096,
+        1.045,
+        1.056,
+        1.088,
+        1.138,
+        1.172,
+        1.231,
+        1.261,
+        1.262,
+        1.248,
+        1.225
+      ]
+    },
+    "predicted_months_flooded_next_year": 11.1
   },
   {
     "name": "Eti-Osa",
@@ -1157,7 +1472,52 @@
     "area_km2": 154.7,
     "population_estimate": 416821,
     "population_exposed_pct": 30.0,
-    "population_exposed_est": 125046
+    "population_exposed_est": 125046,
+    "forecast_next_12mo": {
+      "point": [
+        0.004,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.001,
+        0.0,
+        0.001,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.001,
+        0.0,
+        0.001,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.182,
+        0.19,
+        0.206,
+        0.225,
+        0.228,
+        0.237,
+        0.251,
+        0.266,
+        0.256,
+        0.262,
+        0.259,
+        0.284
+      ]
+    },
+    "predicted_months_flooded_next_year": 0.0
   },
   {
     "name": "Ibeju-Lekki",
@@ -1302,7 +1662,52 @@
     "area_km2": 392.5,
     "population_estimate": 171246,
     "population_exposed_pct": 55.0,
-    "population_exposed_est": 94186
+    "population_exposed_est": 94186,
+    "forecast_next_12mo": {
+      "point": [
+        0.0,
+        0.0,
+        0.002,
+        0.0,
+        0.0,
+        0.002,
+        0.004,
+        0.0,
+        0.0,
+        0.0,
+        0.003,
+        0.001
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.239,
+        0.284,
+        0.335,
+        0.373,
+        0.397,
+        0.421,
+        0.447,
+        0.468,
+        0.466,
+        0.479,
+        0.489,
+        0.516
+      ]
+    },
+    "predicted_months_flooded_next_year": 0.0
   },
   {
     "name": "Ifako-Ijaiye",
@@ -1447,7 +1852,52 @@
     "area_km2": 28.7,
     "population_estimate": 645506,
     "population_exposed_pct": 0.0,
-    "population_exposed_est": 0
+    "population_exposed_est": 0,
+    "forecast_next_12mo": {
+      "point": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "predicted_months_flooded_next_year": 0.0
   },
   {
     "name": "Ikeja",
@@ -1592,7 +2042,52 @@
     "area_km2": 39.0,
     "population_estimate": 470238,
     "population_exposed_pct": 0.0,
-    "population_exposed_est": 0
+    "population_exposed_est": 0,
+    "forecast_next_12mo": {
+      "point": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "predicted_months_flooded_next_year": 0.0
   },
   {
     "name": "Ikorodu",
@@ -1737,7 +2232,52 @@
     "area_km2": 315.1,
     "population_estimate": 773696,
     "population_exposed_pct": 45.0,
-    "population_exposed_est": 348163
+    "population_exposed_est": 348163,
+    "forecast_next_12mo": {
+      "point": [
+        0.125,
+        0.099,
+        0.094,
+        0.072,
+        0.066,
+        0.065,
+        0.067,
+        0.063,
+        0.062,
+        0.069,
+        0.074,
+        0.078
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.745,
+        0.811,
+        0.863,
+        0.895,
+        0.925,
+        0.961,
+        0.995,
+        1.024,
+        1.022,
+        1.05,
+        1.064,
+        1.107
+      ]
+    },
+    "predicted_months_flooded_next_year": 0.9
   },
   {
     "name": "Kosofe",
@@ -1882,7 +2422,52 @@
     "area_km2": 63.2,
     "population_estimate": 1000940,
     "population_exposed_pct": 15.0,
-    "population_exposed_est": 150141
+    "population_exposed_est": 150141,
+    "forecast_next_12mo": {
+      "point": [
+        0.0,
+        0.0,
+        0.001,
+        0.0,
+        0.001,
+        0.0,
+        0.001,
+        0.001,
+        0.0,
+        0.0,
+        0.0,
+        0.001
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.024,
+        0.03,
+        0.038,
+        0.051,
+        0.049,
+        0.055,
+        0.063,
+        0.076,
+        0.06,
+        0.066,
+        0.062,
+        0.085
+      ]
+    },
+    "predicted_months_flooded_next_year": 0.0
   },
   {
     "name": "Lagos Island",
@@ -2027,7 +2612,52 @@
     "area_km2": 203.7,
     "population_estimate": 309964,
     "population_exposed_pct": 80.0,
-    "population_exposed_est": 247971
+    "population_exposed_est": 247971,
+    "forecast_next_12mo": {
+      "point": [
+        0.101,
+        0.073,
+        0.072,
+        0.055,
+        0.055,
+        0.047,
+        0.047,
+        0.041,
+        0.036,
+        0.027,
+        0.03,
+        0.026
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.893,
+        0.952,
+        0.997,
+        1.016,
+        1.038,
+        1.047,
+        1.064,
+        1.072,
+        1.065,
+        1.063,
+        1.075,
+        1.091
+      ]
+    },
+    "predicted_months_flooded_next_year": 0.6
   },
   {
     "name": "Lagos Mainland",
@@ -2172,7 +2802,52 @@
     "area_km2": 19.4,
     "population_estimate": 490015,
     "population_exposed_pct": 2.5,
-    "population_exposed_est": 12250
+    "population_exposed_est": 12250,
+    "forecast_next_12mo": {
+      "point": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.002,
+        0.001,
+        0.001,
+        0.001,
+        0.001,
+        0.001,
+        0.001,
+        0.002,
+        0.001,
+        0.001,
+        0.001,
+        0.002
+      ]
+    },
+    "predicted_months_flooded_next_year": 0.0
   },
   {
     "name": "Mushin",
@@ -2317,7 +2992,52 @@
     "area_km2": 14.8,
     "population_estimate": 903631,
     "population_exposed_pct": 0.0,
-    "population_exposed_est": 0
+    "population_exposed_est": 0,
+    "forecast_next_12mo": {
+      "point": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "predicted_months_flooded_next_year": 0.0
   },
   {
     "name": "Ojo",
@@ -2462,7 +3182,52 @@
     "area_km2": 153.6,
     "population_estimate": 892005,
     "population_exposed_pct": 80.0,
-    "population_exposed_est": 713604
+    "population_exposed_est": 713604,
+    "forecast_next_12mo": {
+      "point": [
+        0.16,
+        0.098,
+        0.076,
+        0.039,
+        0.036,
+        0.037,
+        0.035,
+        0.031,
+        0.028,
+        0.028,
+        0.04,
+        0.036
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.803,
+        0.825,
+        0.851,
+        0.855,
+        0.867,
+        0.885,
+        0.904,
+        0.909,
+        0.902,
+        0.912,
+        0.932,
+        0.955
+      ]
+    },
+    "predicted_months_flooded_next_year": 0.6
   },
   {
     "name": "Oshodi-Isolo",
@@ -2607,7 +3372,52 @@
     "area_km2": 32.9,
     "population_estimate": 925212,
     "population_exposed_pct": 0.0,
-    "population_exposed_est": 0
+    "population_exposed_est": 0,
+    "forecast_next_12mo": {
+      "point": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "predicted_months_flooded_next_year": 0.0
   },
   {
     "name": "Shomolu",
@@ -2752,7 +3562,52 @@
     "area_km2": 15.6,
     "population_estimate": 583254,
     "population_exposed_pct": 0.0,
-    "population_exposed_est": 0
+    "population_exposed_est": 0,
+    "forecast_next_12mo": {
+      "point": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "predicted_months_flooded_next_year": 0.0
   },
   {
     "name": "Surulere",
@@ -2897,6 +3752,51 @@
     "area_km2": 26.2,
     "population_estimate": 757129,
     "population_exposed_pct": 0.0,
-    "population_exposed_est": 0
+    "population_exposed_est": 0,
+    "forecast_next_12mo": {
+      "point": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q10": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "q90": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "predicted_months_flooded_next_year": 0.0
   }
 ]
