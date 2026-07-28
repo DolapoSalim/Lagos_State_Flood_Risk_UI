@@ -140,9 +140,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 0,
     "area_km2": 14.1,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 656256,
+    "population_exposed_pct": 0.0,
+    "population_exposed_est": 0
   },
   {
     "name": "Ajeromi-Ifelodun",
@@ -285,9 +285,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 0,
     "area_km2": 9.9,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 992246,
+    "population_exposed_pct": 0.0,
+    "population_exposed_est": 0
   },
   {
     "name": "Alimosho",
@@ -430,9 +430,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 0,
     "area_km2": 126.2,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 1932388,
+    "population_exposed_pct": 0.0,
+    "population_exposed_est": 0
   },
   {
     "name": "Amuwo-Odofin",
@@ -575,9 +575,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 280,
     "area_km2": 148.4,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 489077,
+    "population_exposed_pct": 67.5,
+    "population_exposed_est": 330127
   },
   {
     "name": "Apapa",
@@ -720,9 +720,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 99,
     "area_km2": 35.5,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 324317,
+    "population_exposed_pct": 25.0,
+    "population_exposed_est": 81079
   },
   {
     "name": "Badagry",
@@ -865,9 +865,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 91,
     "area_km2": 421.7,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 347768,
+    "population_exposed_pct": 40.0,
+    "population_exposed_est": 139107
   },
   {
     "name": "Epe",
@@ -1010,9 +1010,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 167902,
     "area_km2": 1025.0,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 266237,
+    "population_exposed_pct": 85.0,
+    "population_exposed_est": 226301
   },
   {
     "name": "Eti-Osa",
@@ -1155,9 +1155,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 49,
     "area_km2": 154.7,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 416821,
+    "population_exposed_pct": 30.0,
+    "population_exposed_est": 125046
   },
   {
     "name": "Ibeju-Lekki",
@@ -1300,9 +1300,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 217,
     "area_km2": 392.5,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 171246,
+    "population_exposed_pct": 55.0,
+    "population_exposed_est": 94186
   },
   {
     "name": "Ifako-Ijaiye",
@@ -1445,9 +1445,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 0,
     "area_km2": 28.7,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 645506,
+    "population_exposed_pct": 0.0,
+    "population_exposed_est": 0
   },
   {
     "name": "Ikeja",
@@ -1590,9 +1590,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 0,
     "area_km2": 39.0,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 470238,
+    "population_exposed_pct": 0.0,
+    "population_exposed_est": 0
   },
   {
     "name": "Ikorodu",
@@ -1735,9 +1735,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 197,
     "area_km2": 315.1,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 773696,
+    "population_exposed_pct": 45.0,
+    "population_exposed_est": 348163
   },
   {
     "name": "Kosofe",
@@ -1880,9 +1880,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 32,
     "area_km2": 63.2,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 1000940,
+    "population_exposed_pct": 15.0,
+    "population_exposed_est": 150141
   },
   {
     "name": "Lagos Island",
@@ -2025,9 +2025,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 468,
     "area_km2": 203.7,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 309964,
+    "population_exposed_pct": 80.0,
+    "population_exposed_est": 247971
   },
   {
     "name": "Lagos Mainland",
@@ -2170,9 +2170,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 1,
     "area_km2": 19.4,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 490015,
+    "population_exposed_pct": 2.5,
+    "population_exposed_est": 12250
   },
   {
     "name": "Mushin",
@@ -2315,9 +2315,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 0,
     "area_km2": 14.8,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 903631,
+    "population_exposed_pct": 0.0,
+    "population_exposed_est": 0
   },
   {
     "name": "Ojo",
@@ -2460,9 +2460,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 610,
     "area_km2": 153.6,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 892005,
+    "population_exposed_pct": 80.0,
+    "population_exposed_est": 713604
   },
   {
     "name": "Oshodi-Isolo",
@@ -2605,9 +2605,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 0,
     "area_km2": 32.9,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 925212,
+    "population_exposed_pct": 0.0,
+    "population_exposed_est": 0
   },
   {
     "name": "Shomolu",
@@ -2750,9 +2750,9 @@
     "monthly_series_start": "2014-10",
     "detections_total": 0,
     "area_km2": 15.6,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 583254,
+    "population_exposed_pct": 0.0,
+    "population_exposed_est": 0
   },
   {
     "name": "Surulere",
@@ -2895,8 +2895,8 @@
     "monthly_series_start": "2014-10",
     "detections_total": 0,
     "area_km2": 26.2,
-    "population_estimate": null,
-    "population_exposed_pct": null,
-    "population_exposed_est": null
+    "population_estimate": 757129,
+    "population_exposed_pct": 0.0,
+    "population_exposed_est": 0
   }
 ]
