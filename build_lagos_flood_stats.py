@@ -124,32 +124,49 @@ def main():
     df = df.dropna(subset=["lga"])
     print(f"  detections falling inside Lagos LGAs: {len(df):,}")
 
+    # Full monthly index Oct 2014 - Sep 2024 (dataset's native coverage).
+    # This is what forecast_timesfm.py consumes as historical context -
+    # 120 monthly points is a far better input to a time-series foundation
+    # model than the 10 yearly points alone.
+    month_index = pd.period_range("2014-10", "2024-09", freq="M")
+
     results = []
     for name, info in polys.items():
         sub = df[df["lga"] == name]
-        if sub.empty:
-            recurrence_months = 0
-            yearly = {str(y): 0.0 for y in range(2015, 2025)}
+        if not sub.empty:
+            sub = sub.assign(period=pd.to_datetime(
+                sub["year"].astype(str) + "-" + sub["month"].astype(str) + "-01"
+            ).dt.to_period("M"))
+            # 1 if that LGA had >=1 detection in that calendar month, 0 otherwise.
+            # (Switch to sub.groupby("period").size() instead of .any() if you
+            # want detection *counts* per month rather than a flood/no-flood flag.)
+            monthly_flag = sub.groupby("period").size()
         else:
-            sub = sub.assign(ym=sub["year"].astype(str) + "-" + sub["month"].astype(str))
-            recurrence_months = sub["ym"].nunique()
-            yearly = {}
-            for y in range(2015, 2025):
-                yearly[str(y)] = round(
-                    sub[sub["year"] == y]["ym"].nunique(), 1
-                )
+            monthly_flag = pd.Series(dtype=int)
+
+        monthly_series = [int(monthly_flag.get(p, 0) > 0) for p in month_index]
+
+        yearly = {}
+        for y in range(2015, 2025):
+            months_this_year = [
+                monthly_series[i] for i, p in enumerate(month_index) if p.year == y
+            ]
+            yearly[str(y)] = int(sum(months_this_year))
+
+        recurrence_months = int(sum(monthly_series))
 
         results.append(
             {
                 "name": name,
                 "risk_tier": risk_tier_from_recurrence(recurrence_months),
-                "recurrence_months": int(recurrence_months),
-                "yearly_flood_events": yearly,
+                "recurrence_months": recurrence_months,
+                "yearly_flood_events": yearly,  # months flooded per calendar year, 0-12
+                "monthly_series": monthly_series,  # 120 points, Oct 2014 - Sep 2024, 0/1 per month
+                "monthly_series_start": "2014-10",
                 "detections_total": int(len(sub)),
                 "area_km2": info["area_km2"],
-                # Population figures are NOT in this dataset. Join your own
-                # population source (e.g. WorldPop, NPC estimates) here by
-                # LGA name to populate population_estimate / exposed counts.
+                # Population figures are NOT in this dataset - populated by
+                # add_population_worldpop.py in a later step.
                 "population_estimate": None,
                 "population_exposed_pct": None,
                 "population_exposed_est": None,
