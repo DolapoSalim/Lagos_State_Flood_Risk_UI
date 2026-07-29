@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nigeria Flood Recurrence Atlas</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root{
+  --ink:#0A1E26; --ink-2:#0D2530; --panel:#12303D; --panel-hi:#173B49;
+  --border:rgba(70,217,232,0.16); --border-hi:rgba(70,217,232,0.34);
+  --cyan:#46D9E8; --cyan-dim:#2B8896;
+  --severe:#E14B3F; --high:#E8934F; --moderate:#E8C34F; --low:#3FAE8C;
+  --text:#EAF4F6; --text-dim:#8FB2BA; --text-faint:#5D818A;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:var(--ink);color:var(--text);font-family:'IBM Plex Sans',sans-serif;}
+::selection{background:var(--cyan);color:var(--ink);}
+.wrap{max-width:1400px;margin:0 auto;padding:28px 32px 60px;}
+
+header{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding-bottom:22px;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.title-block{display:flex;gap:18px;align-items:center;}
+.radar{width:56px;height:56px;border-radius:50%;position:relative;background:radial-gradient(circle at center, var(--panel-hi) 0%, var(--ink-2) 70%);border:1px solid var(--border-hi);flex:0 0 auto;overflow:hidden;}
+.radar::before{content:'';position:absolute;inset:0;background:conic-gradient(from 0deg, transparent 0deg, transparent 260deg, rgba(70,217,232,0.55) 300deg, var(--cyan) 360deg);animation:sweep 4s linear infinite;}
+.radar::after{content:'';position:absolute;inset:8px;border-radius:50%;border:1px solid rgba(70,217,232,0.25);}
+@keyframes sweep{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin:0 0 6px;}
+h1{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:38px;line-height:.95;margin:0 0 6px;letter-spacing:.01em;text-transform:uppercase;}
+.subtitle{color:var(--text-dim);font-size:13.5px;max-width:520px;line-height:1.5;margin:0;}
+.header-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;align-items:center;padding-top:6px;}
+
+select, button{font-family:'IBM Plex Sans',sans-serif;font-size:12.5px;font-weight:600;border-radius:7px;padding:9px 14px;cursor:pointer;transition:all .15s ease;}
+select{background:var(--panel);border:1px solid var(--border-hi);color:var(--text);appearance:none;-webkit-appearance:none;padding-right:30px;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6"><path d="M0 0l5 6 5-6z" fill="%2346D9E8"/></svg>');background-repeat:no-repeat;background-position:right 12px center;}
+.btn-ghost{background:transparent;border:1px solid var(--border-hi);color:var(--text);}
+.btn-ghost:hover{background:var(--panel);border-color:var(--cyan);}
+.btn-solid{background:var(--cyan);border:1px solid var(--cyan);color:var(--ink);}
+.btn-solid:hover{background:#5FE4F2;}
+
+.banner{margin-top:20px;padding:13px 16px;border:1px solid rgba(232,147,79,0.4);background:rgba(232,147,79,0.08);border-radius:8px;font-size:12.5px;line-height:1.6;color:#F2D2A8;display:flex;gap:10px;}
+.banner b{color:#F5DCB8;}
+.banner .dot{width:7px;height:7px;border-radius:50%;background:var(--high);flex:0 0 auto;margin-top:5px;}
+.banner.hidden{display:none;}
+
+.no-data{margin-top:20px;padding:40px 20px;border:1px dashed var(--border-hi);border-radius:10px;text-align:center;color:var(--text-dim);font-size:13.5px;line-height:1.7;}
+.no-data code{font-family:'IBM Plex Mono',monospace;background:var(--panel);padding:2px 6px;border-radius:4px;color:var(--cyan);}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0;}
+.stat{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px 18px;}
+.stat .label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-faint);margin-bottom:8px;}
+.stat .value{font-family:'Big Shoulders Display',sans-serif;font-size:30px;font-weight:700;line-height:1;}
+.stat .sub{font-size:11.5px;color:var(--text-dim);margin-top:5px;}
+
+.main{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-top:6px;}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.panel-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;}
+.panel-head h2{font-family:'Big Shoulders Display',sans-serif;font-size:16px;letter-spacing:.04em;text-transform:uppercase;margin:0;font-weight:700;}
+.legend{display:flex;gap:12px;font-size:11px;color:var(--text-dim);}
+.legend span{display:inline-flex;align-items:center;gap:5px;}
+.legend i{width:9px;height:9px;border-radius:2px;display:inline-block;}
+
+#map{height:520px;width:100%;background:var(--ink-2);}
+.leaflet-container{background:var(--ink-2)!important;font-family:'IBM Plex Sans',sans-serif;}
+.leaflet-popup-content-wrapper{background:var(--panel-hi);color:var(--text);border-radius:8px;}
+.leaflet-popup-tip{background:var(--panel-hi);}
+
+.detail-body{padding:18px;min-height:520px;display:flex;flex-direction:column;gap:16px;overflow-y:auto;}
+.empty-state{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--text-faint);font-size:13px;padding:20px;}
+.d-head{display:flex;align-items:center;justify-content:space-between;}
+.d-name{font-family:'Big Shoulders Display',sans-serif;font-size:26px;font-weight:700;line-height:1;text-transform:uppercase;}
+.tier-badge{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:5px;font-weight:500;display:flex;align-items:center;gap:6px;}
+.tier-badge .shape{width:8px;height:8px;display:inline-block;}
+.d-metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.d-metric{background:var(--ink-2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;}
+.d-metric .label{font-size:10.5px;color:var(--text-faint);font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;}
+.d-metric .value{font-family:'Big Shoulders Display',sans-serif;font-size:22px;font-weight:700;}
+.d-metric .value small{font-size:12px;color:var(--text-dim);font-family:'IBM Plex Sans',sans-serif;font-weight:400;}
+.chart-wrap .label{font-size:10.5px;color:var(--text-faint);font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;}
+.chart-caption{font-size:10px;color:var(--text-faint);margin-top:4px;line-height:1.5;}
+.note{font-size:12px;color:var(--text-dim);line-height:1.55;border-top:1px solid var(--border);padding-top:14px;}
+.note a{color:var(--cyan-dim);}
+
+.table-panel{margin-top:16px;}
+table{width:100%;border-collapse:collapse;font-size:12.5px;}
+.table-toolbar{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid var(--border);gap:12px;flex-wrap:wrap;}
+.search-box{background:var(--ink-2);border:1px solid var(--border-hi);border-radius:6px;padding:7px 12px;color:var(--text);font-size:12.5px;font-family:'IBM Plex Sans',sans-serif;width:220px;}
+.search-box::placeholder{color:var(--text-faint);}
+th{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-faint);font-weight:500;padding:10px 16px;border-bottom:1px solid var(--border-hi);cursor:pointer;user-select:none;}
+th:hover{color:var(--cyan);}
+th.sorted{color:var(--cyan);}
+td{padding:10px 16px;border-bottom:1px solid var(--border);}
+tbody tr{cursor:pointer;transition:background .12s;}
+tbody tr:hover{background:var(--panel-hi);}
+tbody tr.selected{background:rgba(70,217,232,0.09);}
+.tier-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:8px;}
+.tier-shape{display:inline-block;margin-right:8px;width:9px;height:9px;}
+.name-cell{font-weight:600;}
+.mono{font-family:'IBM Plex Mono',monospace;color:var(--text-dim);}
+.print-only{display:none;}
+
+footer{margin-top:26px;padding-top:18px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.methodology{font-size:11.5px;color:var(--text-faint);max-width:700px;line-height:1.6;}
+.methodology a{color:var(--cyan-dim);}
+#fileInput{display:none;}
+
+@media (max-width:980px){
+  .main{grid-template-columns:1fr;}
+  .stats{grid-template-columns:1fr 1fr;}
+  header{flex-direction:column;}
+}
+@media print{
+  body{background:#fff;color:#111;}
+  .header-actions,.banner,select{display:none;}
+  .panel,.stat{border:1px solid #ccc;background:#fafafa;}
+  #map{height:380px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="title-block">
+      <div class="radar"></div>
+      <div>
+        <p class="eyebrow">Sentinel-1 SAR &middot; Oct 2014 – Sep 2024</p>
+        <h1>Nigeria Flood Recurrence Atlas</h1>
+        <p class="subtitle" id="subtitleText">Satellite radar–derived flood detections, aggregated by Local Government Area for planning and emergency-response prioritization.</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <select id="stateSelect"><option>Loading states…</option></select>
+      <button class="btn-ghost" onclick="document.getElementById('fileInput').click()">Load updated data</button>
+      <input type="file" id="fileInput" accept="application/json">
+      <button class="btn-solid" onclick="window.print()">Print / export</button>
+    </div>
+  </header>
+
+  <div class="banner" id="banner">
+    <div class="dot"></div>
+    <div id="bannerText"></div>
+  </div>
+
+  <div class="no-data" id="noDataMsg" style="display:none;"></div>
+
+  <div id="appBody" style="display:none;">
+    <div class="stats" id="statStrip"></div>
+
+    <div class="main">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Flood Risk by LGA</h2>
+          <div class="legend">
+            <span><i style="background:var(--severe)"></i>Severe</span>
+            <span><i style="background:var(--high)"></i>High</span>
+            <span><i style="background:var(--moderate)"></i>Moderate</span>
+            <span><i style="background:var(--low)"></i>Low</span>
+          </div>
+        </div>
+        <div id="map"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2 id="detailTitle">LGA Detail</h2></div>
+        <div class="detail-body" id="detailBody">
+          <div class="empty-state">Click an LGA on the map, or a row in the table below, to see its flood recurrence trend and forecast.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel table-panel">
+      <div class="table-toolbar">
+        <h2 style="font-family:'Big Shoulders Display',sans-serif;font-size:16px;letter-spacing:.04em;text-transform:uppercase;margin:0;">All LGAs, Ranked</h2>
+        <input class="search-box" id="tableSearch" placeholder="Search LGA name…">
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th data-key="name">LGA</th>
+            <th data-key="risk_tier">Risk tier</th>
+            <th data-key="recurrence_months">Months flooded (10yr)</th>
+            <th data-key="predicted_months_flooded_next_year">Predicted next 12mo</th>
+            <th data-key="population_exposed_est">Population exposed (est.)</th>
+            <th data-key="area_km2">Area (km²)</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <div class="methodology">
+      <b style="color:var(--text-dim)">Methodology.</b> Flood detections derive from Sentinel-1 SAR change detection at 20m resolution (Nature Communications, 2025). Recurrence = distinct months with a flood detection, Oct 2014–Sep 2024, after filtering for terrain slope, soil moisture anomaly, temperature, and edge artifacts. Population from WorldPop's Nigeria 2020 UN-adjusted 100m gridded population count, summed per LGA polygon. Next-12-month forecast from <a href="https://github.com/google-research/timesfm" target="_blank">Google's TimesFM</a>, run zero-shot on each LGA's 120-month detection history. Source dataset: <a href="https://huggingface.co/datasets/ai-for-good-lab/ai4g-flood-dataset" target="_blank">ai-for-good-lab/ai4g-flood-dataset</a>. LGA boundaries from public Nigeria administrative geodata.
+    </div>
+  </footer>
+</div>
+
+<script>
+const TIER_COLOR = {Severe:'#E14B3F', High:'#E8934F', Moderate:'#E8C34F', Low:'#3FAE8C'};
+const TIER_SHAPE = {Severe:'50% 0%,0% 100%,100% 100%', High:'0 0,100% 0,100% 100%,0 100%', Moderate:'50% 0,100% 50%,50% 100%,0 50%', Low:'50% 50% 50% 50% / 50% 50% 50% 50%'};
+const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+let map = null, geoLayer = null;
+let statsData = [], statsByName = {}, lgaGeojson = null;
+let selectedName = null, sortKey = 'recurrence_months', sortDir = -1, searchTerm = '';
+let statesRegistry = [];
+
+async function init(){
+  const res = await fetch('data/states.json');
+  const reg = await res.json();
+  statesRegistry = reg.states;
+  const sel = document.getElementById('stateSelect');
+  sel.innerHTML = statesRegistry.map(s => `<option value="${s.slug}">${s.name}${s.has_flood_stats ? '' : ' (no data yet)'}</option>`).join('');
+  sel.addEventListener('change', () => loadState(sel.value));
+  if(statesRegistry.length) loadState(statesRegistry[0].slug);
+}
+
+async function loadState(slug){
+  const meta = statesRegistry.find(s => s.slug === slug);
+  document.getElementById('subtitleText').textContent =
+    `Satellite radar–derived flood detections across ${meta.lga_count} Local Government Areas in ${meta.name} State.`;
+
+  if(!meta.has_flood_stats){
+    document.getElementById('appBody').style.display = 'none';
+    document.getElementById('banner').classList.add('hidden');
+    const nd = document.getElementById('noDataMsg');
+    nd.style.display = 'block';
+    nd.innerHTML = `No flood data has been generated for <b>${meta.name}</b> yet.<br><br>
+      Run: <code>python build_state_flood_stats.py ${slug}</code> &rarr;
+      <code>python add_population_worldpop.py ${slug}</code> &rarr;
+      <code>python forecast_timesfm.py ${slug}</code><br><br>
+      Then reload this page, or use "Load updated data" once you have a stats.json file.`;
+    return;
+  }
+  document.getElementById('noDataMsg').style.display = 'none';
+  document.getElementById('appBody').style.display = 'block';
+  document.getElementById('banner').classList.remove('hidden');
+  document.getElementById('bannerText').innerHTML =
+    `<b>Illustrative placeholder data</b> may still be present for ${meta.name} until you've run the full pipeline (detection &rarr; WorldPop population &rarr; TimesFM forecast). Use <b>"Load updated data"</b> to override with a fresh stats.json at any time.`;
+
+  const [geoRes, statsRes] = await Promise.all([
+    fetch(`data/${slug}/lgas.geojson`),
+    fetch(`data/${slug}/stats.json`),
+  ]);
+  lgaGeojson = await geoRes.json();
+  statsData = await statsRes.json();
+  selectedName = null;
+  indexStats();
+
+  if(!map){
+    map = L.map('map', {zoomControl:true, attributionControl:false});
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {maxZoom:18, subdomains:'abcd'}).addTo(map);
+  }
+  map.setView([meta.centroid[1], meta.centroid[0]], meta.lga_count > 25 ? 8 : 10);
+
+  renderStatStrip();
+  renderMap();
+  renderTable();
+  // auto-select the highest-risk LGA so the panel isn't empty on load
+  const top = [...statsData].sort((a,b)=>b.recurrence_months-a.recurrence_months)[0];
+  if(top) selectLGA(top.name, false);
+}
+
+function indexStats(){
+  statsByName = {};
+  statsData.forEach(d => statsByName[d.name] = d);
+}
+
+function styleFor(name){
+  const d = statsByName[name];
+  const color = d ? TIER_COLOR[d.risk_tier] : '#555';
+  const isSelected = name === selectedName;
+  return {fillColor:color, fillOpacity:isSelected?0.75:0.45, color:isSelected?'#EAF4F6':color, weight:isSelected?2.4:1};
+}
+
+function renderMap(){
+  if(geoLayer) map.removeLayer(geoLayer);
+  geoLayer = L.geoJSON(lgaGeojson, {
+    style: f => styleFor(f.properties.name),
+    onEachFeature: (feature, layer) => {
+      const name = feature.properties.name;
+      layer.bindTooltip(name, {sticky:true});
+      layer.on('mouseover', () => layer.setStyle({fillOpacity:0.65}));
+      layer.on('mouseout', () => layer.setStyle(styleFor(name)));
+      layer.on('click', () => selectLGA(name));
+      layer._lgaName = name;
+    }
+  }).addTo(map);
+}
+
+function fmt(n){ return (n===null||n===undefined) ? '—' : n.toLocaleString('en-US'); }
+
+function renderStatStrip(){
+  const total = statsData.length;
+  const avgRec = (statsData.reduce((a,d)=>a+d.recurrence_months,0)/total).toFixed(1);
+  const exposedTotal = statsData.filter(d=>d.risk_tier==='Severe'||d.risk_tier==='High')
+    .reduce((a,d)=>a+(d.population_exposed_est||0),0);
+  const top = [...statsData].sort((a,b)=>b.recurrence_months-a.recurrence_months)[0];
+  document.getElementById('statStrip').innerHTML = `
+    <div class="stat"><div class="label">LGAs analyzed</div><div class="value">${total}</div><div class="sub">Full state coverage</div></div>
+    <div class="stat"><div class="label">Avg. months flooded / 10yr</div><div class="value">${avgRec}</div><div class="sub">Across all LGAs, 2015–2024</div></div>
+    <div class="stat"><div class="label">Population in Severe + High zones</div><div class="value">${fmt(exposedTotal)}</div><div class="sub">Estimated exposed residents</div></div>
+    <div class="stat"><div class="label">Most affected LGA</div><div class="value" style="font-size:24px">${top.name}</div><div class="sub">${top.recurrence_months} months flooded, ${top.risk_tier} tier</div></div>
+  `;
+}
+
+function yearlyBarChart(yearly, predictedNextYear){
+  const years = Object.keys(yearly);
+  const vals = years.map(y=>yearly[y]);
+  const scaleMax = 12;
+  const nBars = years.length + (predictedNextYear!==undefined?1:0);
+  const leftPad=20, topPad=6, w=300, h=76, bw=(w-leftPad)/nBars-5;
+  let bars='';
+  [0,6,12].forEach(gv=>{
+    const gy = topPad+h-(gv/scaleMax)*h;
+    bars += `<line x1="${leftPad}" y1="${gy}" x2="${w}" y2="${gy}" stroke="#5D818A" stroke-opacity="0.25" stroke-width="1"></line>
+             <text x="${leftPad-4}" y="${gy+3}" text-anchor="end" font-size="7.5" fill="#5D818A" font-family="IBM Plex Mono">${gv}</text>`;
+  });
+  years.forEach((y,i)=>{
+    const bh=(vals[i]/scaleMax)*h, x=leftPad+i*(bw+5);
+    bars += `<rect x="${x}" y="${topPad+h-bh}" width="${bw}" height="${bh}" fill="var(--cyan)" opacity="0.85" rx="2"></rect>
+             <text x="${x+bw/2}" y="${topPad+h+13}" text-anchor="middle" font-size="8" fill="#5D818A" font-family="IBM Plex Mono">${y.slice(2)}</text>`;
+  });
+  if(predictedNextYear!==undefined){
+    const i=years.length, x=leftPad+i*(bw+5), bh=(predictedNextYear/scaleMax)*h;
+    bars += `<rect x="${x}" y="${topPad+h-bh}" width="${bw}" height="${bh}" fill="none" stroke="var(--moderate)" stroke-width="1.5" stroke-dasharray="3,2" rx="2"></rect>
+             <text x="${x+bw/2}" y="${topPad+h+13}" text-anchor="middle" font-size="8" fill="var(--moderate)" font-family="IBM Plex Mono">next*</text>`;
+  }
+  return `<svg width="100%" viewBox="0 0 ${w} ${h+18}" preserveAspectRatio="xMinYMid meet">${bars}</svg>
+    <div class="chart-caption">Y-axis: months per year with ≥1 satellite-detected flood event (0–12). Dashed bar = TimesFM forecast, next 12 months.</div>`;
+}
+
+function monthLabel(startStr, offset){
+  const [y,m] = startStr.split('-').map(Number);
+  const total = (m-1) + offset;
+  const yy = y + Math.floor(total/12);
+  const mm = total % 12;
+  return MONTH_NAMES[mm] + " '" + String(yy).slice(2);
+}
+
+function forecastSparkline(monthlySeries, startStr, forecast){
+  if(!forecast) return '<div style="font-size:11px;color:var(--text-faint)">No forecast available for this LGA yet.</div>';
+  const histCount = 6;
+  const hist = monthlySeries.slice(-histCount);
+  const histStartOffset = monthlySeries.length - histCount;
+  const point = forecast.point, q10 = forecast.q10, q90 = forecast.q90;
+  const total = histCount + point.length;
+  const w=300, h=76, padL=20, padT=6;
+  const xStep = (w-padL)/(total-1);
+  const xAt = i => padL + i*xStep;
+  const yAt = v => padT + h - Math.max(0,Math.min(1,v))*h;
+
+  const histPts = hist.map((v,i)=>[xAt(i), yAt(v)]);
+  const fPts = point.map((v,i)=>[xAt(histCount+i), yAt(v)]);
+  const q10Pts = q10.map((v,i)=>[xAt(histCount+i), yAt(v)]);
+  const q90Pts = q90.map((v,i)=>[xAt(histCount+i), yAt(v)]);
+
+  const bandPath = 'M ' + q90Pts.map(p=>p.join(',')).join(' L ') + ' L ' +
+    q10Pts.slice().reverse().map(p=>p.join(',')).join(' L ') + ' Z';
+  const histLine = 'M ' + histPts.map(p=>p.join(',')).join(' L ');
+  const fLine = 'M ' + [histPts[histPts.length-1], ...fPts].map(p=>p.join(',')).join(' L ');
+  const todayX = xAt(histCount - 0.5);
+
+  let gridlines = [0,1].map(gv => {
+    const gy = padT+h-gv*h;
+    return `<line x1="${padL}" y1="${gy}" x2="${w}" y2="${gy}" stroke="#5D818A" stroke-opacity="0.25"></line>
+            <text x="${padL-4}" y="${gy+3}" text-anchor="end" font-size="7.5" fill="#5D818A" font-family="IBM Plex Mono">${gv}</text>`;
+  }).join('');
+
+  let labels = '';
+  const firstMonthIdx = monthlySeries.length - histCount;
+  const firstLabel = monthLabel(startStr, firstMonthIdx);
+  const todayLabel = monthLabel(startStr, monthlySeries.length - 1);
+  const lastLabel = monthLabel(startStr, monthlySeries.length - 1 + point.length);
+  labels = `
+    <text x="${xAt(0)}" y="${h+padT+13}" text-anchor="start" font-size="8" fill="#5D818A" font-family="IBM Plex Mono">${firstLabel}</text>
+    <text x="${todayX}" y="${h+padT+13}" text-anchor="middle" font-size="8" fill="var(--cyan)" font-family="IBM Plex Mono">today</text>
+    <text x="${xAt(total-1)}" y="${h+padT+13}" text-anchor="end" font-size="8" fill="var(--moderate)" font-family="IBM Plex Mono">${lastLabel}</text>`;
+
+  return `<svg width="100%" viewBox="0 0 ${w} ${h+18}" preserveAspectRatio="xMinYMid meet">
+      ${gridlines}
+      <path d="${bandPath}" fill="var(--moderate)" opacity="0.15"></path>
+      <line x1="${todayX}" y1="${padT}" x2="${todayX}" y2="${padT+h}" stroke="var(--cyan)" stroke-dasharray="2,2" stroke-opacity="0.5"></line>
+      <path d="${histLine}" fill="none" stroke="var(--cyan)" stroke-width="1.8"></path>
+      <path d="${fLine}" fill="none" stroke="var(--moderate)" stroke-width="1.8" stroke-dasharray="4,3"></path>
+      ${labels}
+    </svg>
+    <div class="chart-caption">Solid = actual monthly flood flag (1 = detected, 0 = none). Dashed = TimesFM-estimated flood likelihood per month. Shaded band = 10th–90th percentile range.</div>`;
+}
+
+function selectLGA(name, doZoom=true){
+  selectedName = name;
+  renderMap();
+  renderDetail(name);
+  renderTable();
+  if(doZoom && geoLayer){
+    const layer = Object.values(geoLayer._layers).find(l => l._lgaName === name);
+    if(layer) map.fitBounds(layer.getBounds(), {maxZoom:12, padding:[30,30]});
+  }
+}
+
+function tierBadge(tier){
+  const color = TIER_COLOR[tier];
+  const shapeStyle = {
+    Severe: 'border-radius:0;',
+    High: 'border-radius:0;transform:rotate(45deg);',
+    Moderate: 'border-radius:50% 0;',
+    Low: 'border-radius:50%;',
+  }[tier] || '';
+  return `<div class="tier-badge" style="background:${color}22;color:${color};border:1px solid ${color}66">
+    <span class="shape" style="background:${color};${shapeStyle}"></span>${tier}</div>`;
+}
+
+function renderDetail(name){
+  const d = statsByName[name];
+  document.getElementById('detailTitle').textContent = name;
+  if(!d) return;
+  document.getElementById('detailBody').innerHTML = `
+    <div class="d-head">
+      <div class="d-name">${d.name}</div>
+      ${tierBadge(d.risk_tier)}
+    </div>
+    <div class="d-metrics">
+      <div class="d-metric"><div class="label">Months flooded (10yr)</div><div class="value">${d.recurrence_months}</div></div>
+      <div class="d-metric"><div class="label">Predicted next 12mo</div><div class="value" style="color:var(--moderate)">${d.predicted_months_flooded_next_year ?? '—'} <small>months</small></div></div>
+      <div class="d-metric"><div class="label">Est. population (WorldPop)</div><div class="value" style="font-size:18px">${fmt(d.population_estimate)}</div></div>
+      <div class="d-metric"><div class="label">Est. exposed</div><div class="value" style="font-size:18px">${fmt(d.population_exposed_est)} <small>${d.population_exposed_pct ?? '—'}%</small></div></div>
+    </div>
+    <div class="chart-wrap">
+      <div class="label">Next 12 months — month-by-month outlook</div>
+      ${forecastSparkline(d.monthly_series, d.monthly_series_start, d.forecast_next_12mo)}
+    </div>
+    <div class="chart-wrap">
+      <div class="label">10-year history + forecast total</div>
+      ${yearlyBarChart(d.yearly_flood_events, d.predicted_months_flooded_next_year)}
+    </div>
+    <div class="note">Dominant setting: ${d.dominant_context || '—'}. Forecast is a zero-shot projection from <a href="https://github.com/google-research/timesfm" target="_blank">TimesFM</a> — a data-driven extrapolation of past satellite-detected patterns, not a physical rainfall or hydrological model. It will not anticipate anything outside historical norms (new drainage works, an unusually extreme storm).</div>
+  `;
+}
+
+function renderTable(){
+  const rows = [...statsData]
+    .filter(d => d.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    .sort((a,b)=>{
+      const va=a[sortKey], vb=b[sortKey];
+      if(typeof va === 'string') return sortDir*va.localeCompare(vb);
+      return sortDir*((va??0)-(vb??0));
+    });
+  document.getElementById('tableBody').innerHTML = rows.map(d => `
+    <tr class="${d.name===selectedName?'selected':''}" onclick="selectLGA('${d.name.replace(/'/g,"\\'")}')">
+      <td class="name-cell"><span class="tier-dot" style="background:${TIER_COLOR[d.risk_tier]}"></span>${d.name}</td>
+      <td>${d.risk_tier}</td>
+      <td class="mono">${d.recurrence_months}</td>
+      <td class="mono" style="color:var(--moderate)">${d.predicted_months_flooded_next_year ?? '—'}</td>
+      <td class="mono">${fmt(d.population_exposed_est)}</td>
+      <td class="mono">${d.area_km2}</td>
+    </tr>
+  `).join('');
+  document.querySelectorAll('th').forEach(th => th.classList.toggle('sorted', th.dataset.key===sortKey));
+}
+
+document.querySelectorAll('th').forEach(th => {
+  th.addEventListener('click', () => {
+    const key = th.dataset.key;
+    if(sortKey===key) sortDir*=-1; else { sortKey=key; sortDir=-1; }
+    renderTable();
+  });
+});
+
+document.getElementById('tableSearch').addEventListener('input', (e) => {
+  searchTerm = e.target.value;
+  renderTable();
+});
+
+document.getElementById('fileInput').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (evt) => {
+    try{
+      statsData = JSON.parse(evt.target.result);
+      indexStats();
+      document.getElementById('banner').classList.add('hidden');
+      document.getElementById('appBody').style.display = 'block';
+      document.getElementById('noDataMsg').style.display = 'none';
+      renderStatStrip();
+      renderMap();
+      renderTable();
+      const top = [...statsData].sort((a,b)=>b.recurrence_months-a.recurrence_months)[0];
+      if(top) selectLGA(top.name, false);
+    }catch(err){ alert('Could not parse that file as JSON: ' + err.message); }
+  };
+  reader.readAsText(file);
+});
+
+init();
+</script>
+</body>
+</html>
