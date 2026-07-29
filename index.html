@@ -143,8 +143,6 @@ footer{margin-top:26px;padding-top:18px;border-top:1px solid var(--border);displ
     <div id="bannerText"></div>
   </div>
 
-  <div class="no-data" id="noDataMsg" style="display:none;"></div>
-
   <div id="appBody" style="display:none;">
     <div class="stats" id="statStrip"></div>
 
@@ -223,38 +221,45 @@ async function loadState(slug){
   document.getElementById('subtitleText').textContent =
     `Satellite radar–derived flood detections across ${meta.lga_count} Local Government Areas in ${meta.name} State.`;
 
-  if(!meta.has_flood_stats){
-    document.getElementById('appBody').style.display = 'none';
-    document.getElementById('banner').classList.add('hidden');
-    const nd = document.getElementById('noDataMsg');
-    nd.style.display = 'block';
-    nd.innerHTML = `No flood data has been generated for <b>${meta.name}</b> yet.<br><br>
-      Run: <code>python build_state_flood_stats.py ${slug}</code> &rarr;
-      <code>python add_population_worldpop.py ${slug}</code> &rarr;
-      <code>python forecast_timesfm.py ${slug}</code><br><br>
-      Then reload this page, or use "Load updated data" once you have a stats.json file.`;
-    return;
-  }
-  document.getElementById('noDataMsg').style.display = 'none';
-  document.getElementById('appBody').style.display = 'block';
-  document.getElementById('banner').classList.remove('hidden');
-  document.getElementById('bannerText').innerHTML =
-    `<b>Illustrative placeholder data</b> may still be present for ${meta.name} until you've run the full pipeline (detection &rarr; WorldPop population &rarr; TimesFM forecast). Use <b>"Load updated data"</b> to override with a fresh stats.json at any time.`;
-
-  const [geoRes, statsRes] = await Promise.all([
-    fetch(`data/${slug}/lgas.geojson`),
-    fetch(`data/${slug}/stats.json`),
-  ]);
+  // Boundaries + map always load, regardless of whether stats.json exists yet -
+  // this is what "Load updated data" needs to have something to render into.
+  const geoRes = await fetch(`data/${slug}/lgas.geojson`);
   lgaGeojson = await geoRes.json();
-  statsData = await statsRes.json();
-  selectedName = null;
-  indexStats();
 
   if(!map){
     map = L.map('map', {zoomControl:true, attributionControl:false});
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {maxZoom:18, subdomains:'abcd'}).addTo(map);
   }
   map.setView([meta.centroid[1], meta.centroid[0]], meta.lga_count > 25 ? 8 : 10);
+
+  selectedName = null;
+  document.getElementById('appBody').style.display = 'block';
+
+  if(!meta.has_flood_stats){
+    statsData = [];
+    indexStats();
+    renderMap();          // boundaries only, neutral grey, no stats yet
+    renderStatStrip();
+    renderTable();
+    document.getElementById('detailBody').innerHTML =
+      '<div class="empty-state">No flood data loaded for this state yet. Use "Load updated data" above to load a stats.json, or run the pipeline (see below) then reload.</div>';
+    document.getElementById('banner').classList.remove('hidden');
+    document.getElementById('bannerText').innerHTML =
+      `No flood data has been generated for <b>${meta.name}</b> yet. Boundaries are shown, but there are no recurrence/population/forecast figures. Run:
+       <code style="font-size:11px">python build_state_flood_stats.py ${slug}</code> &rarr;
+       <code style="font-size:11px">python add_population_worldpop.py ${slug}</code> &rarr;
+       <code style="font-size:11px">python forecast_timesfm.py ${slug}</code>,
+       then reload — or use <b>"Load updated data"</b> above to load a stats.json directly.`;
+    return;
+  }
+
+  document.getElementById('banner').classList.remove('hidden');
+  document.getElementById('bannerText').innerHTML =
+    `<b>Illustrative placeholder data</b> may still be present for ${meta.name} until you've run the full pipeline (detection &rarr; WorldPop population &rarr; TimesFM forecast). Use <b>"Load updated data"</b> to override with a fresh stats.json at any time.`;
+
+  const statsRes = await fetch(`data/${slug}/stats.json`);
+  statsData = await statsRes.json();
+  indexStats();
 
   renderStatStrip();
   renderMap();
@@ -295,6 +300,15 @@ function fmt(n){ return (n===null||n===undefined) ? '—' : n.toLocaleString('en
 
 function renderStatStrip(){
   const total = statsData.length;
+  if(total === 0){
+    document.getElementById('statStrip').innerHTML = `
+      <div class="stat"><div class="label">LGAs analyzed</div><div class="value">0</div><div class="sub">No stats loaded yet</div></div>
+      <div class="stat"><div class="label">Avg. months flooded / 10yr</div><div class="value">—</div></div>
+      <div class="stat"><div class="label">Population in Severe + High zones</div><div class="value">—</div></div>
+      <div class="stat"><div class="label">Most affected LGA</div><div class="value">—</div></div>
+    `;
+    return;
+  }
   const avgRec = (statsData.reduce((a,d)=>a+d.recurrence_months,0)/total).toFixed(1);
   const exposedTotal = statsData.filter(d=>d.risk_tier==='Severe'||d.risk_tier==='High')
     .reduce((a,d)=>a+(d.population_exposed_est||0),0);
@@ -485,7 +499,6 @@ document.getElementById('fileInput').addEventListener('change', (e) => {
       indexStats();
       document.getElementById('banner').classList.add('hidden');
       document.getElementById('appBody').style.display = 'block';
-      document.getElementById('noDataMsg').style.display = 'none';
       renderStatStrip();
       renderMap();
       renderTable();
